@@ -27,6 +27,34 @@ shortDate = datetime.datetime.today().strftime('%Y_%m_%d')
 outputFile = "coordinate_output_" + shortDate +".txt"
 f = open(outputFile, "a")
 
+# working auto from past program
+def arm_and_takeoff(aTargetAltitude):
+    print("Basic pre-arm checks")
+    while not vehicle.is_armable:
+        print(" Waiting for vehicle to initialise...")
+        time.sleep(1)
+
+    print("Arming motors")
+    vehicle.mode = dk.VehicleMode("GUIDED")
+    vehicle.armed = True
+    while not vehicle.armed:
+        print(" Waiting for arming...")
+        time.sleep(1)
+
+    time.sleep(8)
+    
+    aTargetAltitude = 10
+
+    print("Taking off!")
+    vehicle.simple_takeoff(aTargetAltitude)  # Take off to target altitude
+    while True:
+        print(" Altitude: ", vehicle.location.global_relative_frame.alt)
+        if vehicle.location.global_relative_frame.alt >= aTargetAltitude * 0.95:
+            print("Reached target altitude")
+            break
+        time.sleep(1)
+
+
 def send_UAV_data_Xbee(ICAO, pos_lat, pos_lon, pos_alt_rel,velocity,airspeed,battery):
     #print("In send ADSB funtion\n")
     msg = "ICAO: " + ICAO + '\n'
