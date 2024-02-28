@@ -126,14 +126,10 @@ def detect_while_spanning_area():
     print("Enter the coordinates of the destination.")
     try:
         destLat = float(input("Enter the latitude of the destination: "))  
-    except ValueError:
-        print("Invalid input.")
-
-    try:
         destLon = float(input("Enter the longitude of the destination: "))
     except ValueError:
         print("Invalid input.")
-
+        return
 
     print("Destination Coordinates: " + str(destLat) + ", " + str(destLon))
     return
