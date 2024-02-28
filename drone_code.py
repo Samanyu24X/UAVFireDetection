@@ -121,6 +121,21 @@ def callbackFunction(XBeeMessage):
     return 1
 
 def detect_while_spanning_area():
+    # TODO: Check if Fire Scanning is active
+
+    print("Enter the coordinates of the destination.")
+    try:
+        destLat = float(input("Enter the latitude of the destination: "))  
+    except ValueError:
+        print("Invalid input.")
+
+    try:
+        destLon = float(input("Enter the longitude of the destination: "))
+    except ValueError:
+        print("Invalid input.")
+
+
+    print("Destination Coordinates: " + str(destLat) + ", " + str(destLon))
     return
 
 
