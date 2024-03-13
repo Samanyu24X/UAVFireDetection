@@ -24,8 +24,10 @@ def get_flight_mode():
         print("Select flight mode:\n[1] - Autonomous\n[2] - Manual\n")
         mode = input()
     if mode == '1':
+        xbeeDevice.send_data_broadcast("Detection drone flight mode set as autonomous")
         return 1
     elif mode =='2':
+        xbeeDevice.send_data_broadcast("Detection drone flight mode set as manual")
         return 2
 
 
@@ -131,14 +133,16 @@ def detect_while_spanning_area():
         print("Invalid input.")
         return
 
-    print("Destination Coordinates: " + str(destLat) + ", " + str(destLon))
+    print("Destination Coordinates Set: " + str(destLat) + ", " + str(destLon))
+    xbeeDevice.send_data_broadcast("Destination Coordinates Set: " + str(destLat) + ", " + str(destLon))
     return
 
 
 ''' This section takes care of connections (xbee, pixhawk, etc) '''
 
 PORT = "/dev/ttyUSB0" # port for xbee
-BAUDRATE = 9600 # BAUDRATE for xbee
+BAUDRATE = 9600 # BAUDRATE for xbee 
+''' Probably need to change the baud rate to 115200'''
 #open serial port
 xbeeDevice = XBeeDevice(PORT, BAUDRATE) # connect the device
 xbeeDevice.open()
